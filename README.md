@@ -99,7 +99,17 @@ A full-stack web application for executing SQL queries built with React (Fronten
    # or copy the existing sql_runner.db file
 ```
 
-5. **Run the backend:**
+5. ** Create backend/.env with :**
+```
+   # Database configuration
+   DATABASE_URL=sql_runner.db
+
+   # CORS settings (comma-separated list of allowed origins)
+   CORS_ORIGINS=http://localhost:5173,http://localhost:3000,http://localhost
+```
+
+
+6. **Run the backend:**
 ```bash
    uvicorn app.main:app --reload --port 8000
 ```
