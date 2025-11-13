@@ -14,16 +14,18 @@ const TablesPanel = ({ onTableSelect }) => {
 
   const fetchTables = async () => {
     try {
-      setLoading(true);
-      const data = await getTables();
-      setTables(data.tables);
-      setError(null);
-    } catch (err) {
-      setError('Failed to load tables');
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+    setLoading(true);
+    const data = await getTables();
+    // Filter out sqlite system tables
+    const userTables = data.tables.filter(table => !table.startsWith('sqlite_'));
+    setTables(userTables);
+    setError(null);
+  } catch (err) {
+    setError('Failed to load tables');
+    console.error(err);
+  } finally {
+    setLoading(false);
+  }
   };
 
   const handleTableClick = async (tableName) => {

@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: sql-runner-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sql_runner.db
+      - CORS_ORIGINS=http://localhost:5173,http://localhost:3000,http://localhost
+    volumes:
+      - ./backend/sql_runner.db:/app/sql_runner.db
+    restart: unless-stopped
+    networks:
+      - sql-runner-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: sql-runner-frontend
+    ports:
+      - "5173:80"
+    environment:
+      - VITE_API_URL=http://localhost:8000/api
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - sql-runner-network
+
+networks:
+  sql-runner-network:
+    driver: bridge

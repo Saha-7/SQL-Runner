@@ -62,7 +62,7 @@ function App() {
 
       {/* Footer */}
       <footer className="mt-12 py-6 text-center text-sm text-gray-600">
-        <p>Built with React + FastAPI | SQL Runner Assignment</p>
+        <p>Built with SQLite + React + FastAPI</p>
       </footer>
     </div>
   );
